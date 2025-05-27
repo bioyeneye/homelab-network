@@ -1,4 +1,14 @@
 apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: dashboard-auth
+  namespace: internal-traefik
+spec:
+  basicAuth:
+    users:
+      - "admin:$2y$05$PDF1Ahb/GajRnmwZRPSflOlxHoF9lyjJ2kGOqjmNiOEwbajPrAI4a"
+---
+apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
   name: traefik-dashboard
@@ -9,6 +19,8 @@ spec:
   routes:
     - match: Host(`dashboard.internal.local`)
       kind: Rule
+      middlewares:
+        - name: dashboard-auth
       services:
         - name: api@internal
           kind: TraefikService
