@@ -1,0 +1,23 @@
+# File: app/traefik-install-app.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: traefik-install
+  namespace: argocd
+spec:
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: internal-traefik
+  project: default
+  source:
+    repoURL: https://github.com/bioyeneye/homelab-network.git
+    path: internal-traefik/base
+    targetRevision: HEAD
+    directory:
+      recurse: true
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

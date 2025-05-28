@@ -23,6 +23,5 @@ touch $BASE_DIR/base/kustomization.yaml
 # Argo CD application manifests
 mkdir -p $BASE_DIR/app
 touch $BASE_DIR/app/traefik-install-app.yaml
-touch $BASE_DIR/app/traefik-config-app.yaml
 
 echo "✅ Traefik folder structure and empty config files created successfully."

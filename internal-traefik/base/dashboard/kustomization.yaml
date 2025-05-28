@@ -1,0 +1,3 @@
+resources:
+  - ingressroute-dashboard.yaml
+  - middleware-dashboard.yaml
