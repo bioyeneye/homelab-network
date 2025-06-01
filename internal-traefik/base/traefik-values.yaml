@@ -1,23 +1,43 @@
+# File: traefik/base/traefik-values.yaml
+# Recommended structure for Traefik Helm Chart values
+
+# Define entrypoints using the dedicated section
+entryPoints:
+  web:
+    address: ":80/tcp"
+    http:
+      redirections:
+        entryPoint:
+          to: websecure
+          scheme: https
+  websecure:
+    address: ":443/tcp"
+
+# Define providers using the dedicated section
+providers:
+  kubernetesCRD:
+    enabled: true
+  kubernetesIngress: # Enable if you also want to use standard Kubernetes Ingress resources
+    enabled: false   # Set to true if you use standard Ingress, otherwise false
+
+# Arguments not covered by specific sections of the Helm chart's values schema
 additionalArguments:
-  - "--api.dashboard=true"
-  - "--entrypoints.web.address=:80"
-  - "--entrypoints.websecure.address=:443"
-  - "--providers.kubernetescrd"
+  - "--api.dashboard=true" # Enables the dashboard endpoint
   - "--accesslog=true"
   - "--log.level=INFO"
   - "--metrics.prometheus=true"
-  - "--entrypoints.web.http.redirections.entrypoint.to=websecure"
-  - "--entrypoints.web.http.redirections.entrypoint.scheme=https"
 
 service:
   enabled: true
   type: LoadBalancer
-  loadBalancerIP: 192.168.1.231
+  loadBalancerIP: 192.168.1.231 # <--- CRITICAL: Requires a Load Balancer solution like MetalLB for on-prem
   ports:
     web:
       port: 80
+      targetPort: 80
     websecure:
       port: 443
+      targetPort: 443
 
 securityContext:
   capabilities:

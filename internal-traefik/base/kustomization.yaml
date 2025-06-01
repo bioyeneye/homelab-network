@@ -1,3 +1,18 @@
+# File: traefik/base/kustomization.yaml
+# This Kustomization acts as the main entry point for Argo CD for Traefik
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+# Reference the Traefik Helm chart directly
+helmCharts:
+  - name: traefik
+    repo: https://helm.traefik.io/traefik
+    version: 23.2.0 # <--- Double-check this exact version string
+    releaseName: traefik-install # Name of the Helm release in Kubernetes
+    namespace: internal-traefik # Namespace where the chart will be installed
+    valuesFile: traefik-values.yaml # References 'traefik/base/traefik-values.yaml' in this same directory
+
+# Resources to add/overlay on top of the Helm chart
 resources:
-  # - traefik
-  - dashboard
+  - ../dashboard/ingressroute-dashboard.yaml # Path relative to this kustomization.yaml
+  - ../dashboard/middleware-dashboard.yaml   # Path relative to this kustomization.yaml
