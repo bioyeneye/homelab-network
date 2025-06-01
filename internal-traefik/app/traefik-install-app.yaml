@@ -22,4 +22,11 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
+      - ApplyOutOfSyncOnly=true
       - PruneLast=true
+      - ServerSideApply=true
+      - RespectIgnoreDifferences=true
+      - Replace=true
+      - Validate=false
+      - AllowEmpty=true
+      - EnableHelm=true

@@ -1,7 +1,8 @@
 # File: traefik/base/kustomization.yaml
-# This Kustomization acts as the main entry point for Argo CD for Traefik
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+
+namespace: internal-traefik
 
 # Reference the Traefik Helm chart directly
 helmCharts:
