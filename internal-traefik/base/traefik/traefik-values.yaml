@@ -8,11 +8,6 @@ additionalArguments:
   - "--metrics.prometheus=true"
   - "--entrypoints.web.http.redirections.entrypoint.to=websecure"
   - "--entrypoints.web.http.redirections.entrypoint.scheme=https"
-  - "--entrypoints.websecure.http.tls=true"
-  - "--entrypoints.websecure.http.tls.certresolver=default"
-  - "--certificatesresolvers.default.acme.tlschallenge=true"
-  - "--certificatesresolvers.default.acme.email=admin@local.lab"
-  - "--certificatesresolvers.default.acme.storage=/data/acme.json"
 
 service:
   enabled: true
