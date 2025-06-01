@@ -16,7 +16,7 @@ helmCharts:
 
 # Resources to add/overlay on top of the Helm chart
 resources:
-  - ../dashboard  # Correct relative path to dashboard folder
+  - dashboard  # Correct relative path to dashboard folder
 
 commonLabels:
   app.kubernetes.io/name: traefik
