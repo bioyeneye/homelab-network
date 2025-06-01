@@ -10,7 +10,7 @@ spec:
     server: https://kubernetes.default.svc
     namespace: internal-traefik
   source:
-    repoURL: https://github.com/**/homelab-network.git
+    repoURL: https://github.com/bioyeneye/homelab-network.git
     targetRevision: HEAD
     path: internal-traefik/base
   syncPolicy:

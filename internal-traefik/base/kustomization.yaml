@@ -14,5 +14,4 @@ helmCharts:
 
 # Resources to add/overlay on top of the Helm chart
 resources:
-  - ../dashboard/ingressroute-dashboard.yaml # Path relative to this kustomization.yaml
-  - ../dashboard/middleware-dashboard.yaml   # Path relative to this kustomization.yaml
+  - ../dashboard # Path relative to dashboard kustomization.yaml
