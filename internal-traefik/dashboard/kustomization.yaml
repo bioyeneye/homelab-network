@@ -1,0 +1,14 @@
+# File: traefik/dashboard/kustomization.yaml
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: internal-traefik
+
+resources:
+  - dashboard-secret.yaml
+  - middleware-dashboard.yaml
+  - ingressroute-dashboard.yaml
+
+commonLabels:
+  app.kubernetes.io/name: traefik-dashboard
+  app.kubernetes.io/component: dashboard

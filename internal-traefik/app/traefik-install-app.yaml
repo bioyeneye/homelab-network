@@ -3,8 +3,8 @@ kind: Application
 metadata:
   name: traefik-install
   namespace: argocd
-  annotations:
-    argocd.argoproj.io/kustomize-enable-helm: "true"
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
   destination:
@@ -14,19 +14,16 @@ spec:
     repoURL: https://github.com/bioyeneye/homelab-network.git
     targetRevision: HEAD
     path: internal-traefik/base
-    directory:
-      recurse: true
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
-      - ApplyOutOfSyncOnly=true
-      - PruneLast=true
       - ServerSideApply=true
-      - RespectIgnoreDifferences=true
-      - Replace=true
-      - Validate=false
-      - AllowEmpty=true
-      - EnableHelm=true
+    retry:
+      limit: 5
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m

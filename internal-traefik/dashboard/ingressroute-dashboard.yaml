@@ -1,0 +1,18 @@
+# File: traefik/dashboard/ingressroute-dashboard.yaml
+apiVersion: traefik.containo.us/v1alpha1  # Corrected API version
+kind: IngressRoute
+metadata:
+  name: traefik-dashboard
+  namespace: internal-traefik
+spec:
+  entryPoints:
+    - web  # Using HTTP for internal access
+  routes:
+    - match: Host(`traefik.internal.local`) || PathPrefix(`/dashboard`) || PathPrefix(`/api`)
+      kind: Rule
+      services:
+        - name: api@internal
+          kind: TraefikService
+      middlewares:
+        - name: dashboard-auth         # Local middleware reference
+        - name: dashboard-headers      # Additional security headers

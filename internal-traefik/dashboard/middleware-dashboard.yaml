@@ -1,0 +1,28 @@
+# File: traefik/dashboard/middleware-dashboard.yaml
+apiVersion: traefik.containo.us/v1alpha1  # Corrected API version
+kind: Middleware
+metadata:
+  name: dashboard-auth
+  namespace: internal-traefik
+spec:
+  basicAuth:
+    secret: dashboard-auth-secret  # Reference to secret
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: dashboard-headers
+  namespace: internal-traefik
+spec:
+  headers:
+    browserXssFilter: true
+    contentTypeNosniff: true
+    forceSTSHeader: true
+    frameDeny: true
+    stsIncludeSubdomains: true
+    stsPreload: true
+    stsSeconds: 31536000
+    customRequestHeaders:
+      X-Forwarded-Proto: "https"
+    customResponseHeaders:
+      X-Robots-Tag: "noindex,nofollow,nosnippet,noarchive"

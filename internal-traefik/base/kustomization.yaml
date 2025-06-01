@@ -7,12 +7,18 @@ namespace: internal-traefik
 # Reference the Traefik Helm chart directly
 helmCharts:
   - name: traefik
-    repo: https://helm.traefik.io/traefik
-    version: 23.2.0 # <--- Double-check this exact version string
-    releaseName: traefik-install # Name of the Helm release in Kubernetes
-    namespace: internal-traefik # Namespace where the chart will be installed
-    valuesFile: traefik-values.yaml # References 'traefik/base/traefik-values.yaml' in this same directory
+    repo: https://traefik.github.io/charts  # Correct official repo
+    version: 26.0.0  # Updated to latest stable version
+    releaseName: traefik-install
+    namespace: internal-traefik
+    valuesFile: traefik-values.yaml
+    includeCRDs: true  # Important for Traefik CRDs
 
 # Resources to add/overlay on top of the Helm chart
 resources:
-  - dashboard # Path relative to dashboard kustomization.yaml
+  - ../dashboard  # Correct relative path to dashboard folder
+
+commonLabels:
+  app.kubernetes.io/name: traefik
+  app.kubernetes.io/instance: traefik-install
+  app.kubernetes.io/component: ingress-controller

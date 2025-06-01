@@ -1,8 +1,0 @@
-# File: traefik/dashboard/kustomization.yaml
-# Kustomization for Traefik Dashboard resources
-apiVersion: kustomize.config.k8s.io/v1beta1
-kind: Kustomization
-
-resources:
-  - ingressroute-dashboard.yaml
-  - middleware-dashboard.yaml
