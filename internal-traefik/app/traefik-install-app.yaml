@@ -1,9 +1,10 @@
-# File: app/traefik-install-app.yaml
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: traefik-install
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/kustomize-enable-helm: "true"
 spec:
   project: default
   destination:
@@ -13,9 +14,12 @@ spec:
     repoURL: https://github.com/bioyeneye/homelab-network.git
     targetRevision: HEAD
     path: internal-traefik/base
+    directory:
+      recurse: true
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
+      - PruneLast=true

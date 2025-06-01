@@ -14,4 +14,4 @@ helmCharts:
 
 # Resources to add/overlay on top of the Helm chart
 resources:
-  - ../dashboard # Path relative to dashboard kustomization.yaml
+  - dashboard # Path relative to dashboard kustomization.yaml
