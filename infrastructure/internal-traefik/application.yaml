@@ -1,0 +1,21 @@
+# File: apps/internal-traefik.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: internal-traefik
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/bioyeneye/homelab-network.git
+    targetRevision: HEAD
+    path: infrastructure/internal-traefik/base  # Folder containing kustomization.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: kube-system
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
+    syncOptions:
+      - CreateNamespace=true
